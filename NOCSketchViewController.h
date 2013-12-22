@@ -10,7 +10,9 @@
 #import <GLKit/GLKit.h>
 #import "NOCShaderProgram.h"
 #import "NOCOpenGLHelpers.h"
+#ifdef RETAIN_BACKING_BUFFER
 #import "CAEAGLLayer+Retained.h"
+#endif
 
 #ifndef USE_SKETCH_CONTROLS
 #ifndef NOCSketchViewControllerBase
