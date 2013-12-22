@@ -8,7 +8,7 @@
 
 #import "NOCSceneBox.h"
 #import "NOCColorHelpers.h"
-#import "NOCGeometryHelpers.h"
+#import "NOCGeometry.h"
 #import "NOCOpenGLHelpers.h"
 
 @implementation NOCSceneBox

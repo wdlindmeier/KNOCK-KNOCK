@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <CoreMotion/CoreMotion.h>
 #import "NOCOpenGLHelpers.h"
-#import "NOCGeometryHelpers.h"
+#import "NOCGeometry.h"
 
 @interface NOCSketchViewController ()
 {

@@ -7,6 +7,8 @@
 //
 
 #import "NOCMover3D.h"
+#import "NOCOpenGLHelpers.h"
+#import "NOCGeometry.h"
 
 @implementation NOCMover3D
 

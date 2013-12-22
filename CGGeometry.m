@@ -105,11 +105,9 @@ BOOL BPLineSegmentsIntersect(CGPoint a1, CGPoint a2, CGPoint b1, CGPoint b2, CGP
 	return intersect;
 }
 
-
-
 /* 
  Convert degree to vector
- */
+*/
 
 CGPoint DegreesToVector(float deg)
 {
@@ -131,7 +129,6 @@ float CGPointDistance(CGPoint a, CGPoint b)
     return sqrt((xDelta * xDelta) + (yDelta * yDelta));
 }
 
-
 extern float RadiansBetweenPoints(CGPoint a, CGPoint b)
 {
     float dx = b.x-a.x;
@@ -142,4 +139,23 @@ extern float RadiansBetweenPoints(CGPoint a, CGPoint b)
 extern float RadiansFromVector(CGPoint vec)
 {    
     return atan2f(vec.y , vec.x);
+}
+
+extern float CGMap(float n, float minIn, float maxIn, float minOut, float maxOut)
+{
+    float inRange = maxIn - minIn;
+    float outRange = maxOut - minOut;
+    float scalarN = (n-minIn) / inRange;
+    float ret = minOut + (outRange * scalarN);
+    if(isinf(ret) || isnan(ret)){
+        ret = maxOut;
+    }else{
+        ret = CONSTRAIN(ret, minOut, maxOut);
+    }
+    return ret;
+}
+
+extern float RandScalar()
+{
+    return rand() / (float)RAND_MAX;
 }

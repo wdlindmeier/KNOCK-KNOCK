@@ -7,7 +7,8 @@
 //
 
 #import "NOCParticle2D.h"
-#import "NOCGeometryHelpers.h"
+#import "NOCGeometry.h"
+#import "NOCOpenGLHelpers.h"
 
 @implementation NOCParticle2D
 

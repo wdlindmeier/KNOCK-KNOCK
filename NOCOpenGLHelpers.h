@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
+#import "CGGeometry.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -15,7 +16,6 @@ typedef struct {
     GLKVector3 size;
     GLKVector3 origin;
 } NOCBox3D;
-
 
 static GLKTextureInfo * NOCLoadGLTextureWithImage(UIImage *texImage);
 static GLKTextureInfo * NOCLoadGLTextureWithName(NSString *texName);
@@ -126,7 +126,6 @@ static inline void NOCSetGLVertCoordsForRect(GLfloat *glCoords, CGRect rect)
     glCoords[9] = x2;
     glCoords[10] = y2;
     glCoords[11] = 0;
-    
 }
 
 static inline GLKVector3 NOCSurfaceNormalForTriangle(GLKVector3 ptA, GLKVector3 ptB, GLKVector3 ptC)
@@ -137,7 +136,8 @@ static inline GLKVector3 NOCSurfaceNormalForTriangle(GLKVector3 ptA, GLKVector3 
     return GLKVector3Normalize(GLKVector3CrossProduct(vector1, vector2));
 }
 
-typedef enum WallSides {
+typedef enum WallSides
+{
     WallSideNone = 0,
     WallSideBack,
     WallSideFront,
@@ -229,4 +229,57 @@ static inline GLKMatrix4 GLKMatrix4Divide(GLKMatrix4 mat, float divisor)
     m.m[15] = mat.m[15] / divisor;
     
     return m;
+}
+
+#define GLKVector2Zero  GLKVector2Make(0, 0)
+#define GLKVector3Zero  GLKVector3Make(0, 0, 0)
+
+static inline GLKVector2 GLKVector2Random()
+{
+    float x = (RandScalar() * 2) - 1.0f;
+    float y = (RandScalar() * 2) - 1.0f;
+    return GLKVector2Normalize(GLKVector2Make(x,y));
+}
+
+static inline GLKVector3 GLKVector3Random()
+{
+    float x = (RandScalar() * 2) - 1.0f;
+    float y = (RandScalar() * 2) - 1.0f;
+    float z = (RandScalar() * 2) - 1.0f;
+    return GLKVector3Normalize(GLKVector3Make(x,y,z));
+}
+
+static inline GLKVector2 GLKVector2Normal(GLKVector2 vec)
+{
+    return GLKVector2Make(vec.y * -1, vec.x);
+}
+
+static inline GLKVector2 GLKVector2Limit(GLKVector2 vec, float max)
+{
+    float vecLength = GLKVector2Length(vec);
+    if(vecLength > max){
+        float ratio = max / vecLength;
+        return GLKVector2MultiplyScalar(vec, ratio);
+    }
+    return vec;
+}
+
+static inline GLKVector3 GLKVector3Limit(GLKVector3 vec, float max)
+{
+    float vecLength = GLKVector3Length(vec);
+    if(vecLength > max){
+        float ratio = max / vecLength;
+        return GLKVector3MultiplyScalar(vec, ratio);
+    }
+    return vec;
+}
+
+static inline BOOL GLKVector2Equal(GLKVector2 vecA, GLKVector2 vecB)
+{
+    return vecA.x == vecB.x && vecA.y == vecB.y;
+}
+
+static inline BOOL GLKVector3Equal(GLKVector3 vecA, GLKVector3 vecB)
+{
+    return vecA.x == vecB.x && vecA.y == vecB.y && vecA.z == vecB.z;
 }

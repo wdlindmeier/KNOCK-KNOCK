@@ -8,7 +8,8 @@
 
 #import "NOCOBJ.h"
 #import "NOCOpenGLHelpers.h"
-#import "NOCGeometryHelpers.h"
+#import "NOCOpenGLHelpers.h"
+#import "NOCGeometry.h"
 
 @implementation NOCOBJ
 {

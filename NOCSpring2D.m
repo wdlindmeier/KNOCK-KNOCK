@@ -8,6 +8,7 @@
 
 #import "NOCSpring2D.h"
 #import "NOCParticle2D.h"
+#import "NOCOpenGLHelpers.h"
 
 @implementation NOCSpring2D
 

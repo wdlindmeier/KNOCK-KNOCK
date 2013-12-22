@@ -8,6 +8,7 @@
 
 #import "NOCUIKitHelpers.h"
 #import "perlin.h"
+#import "CGGeometry.h"
 
 static void NOCReleaseDataBuffer( void *p , const void *cp , size_t l ) {
     free((void *)cp);
@@ -63,7 +64,7 @@ static void NOCReleaseDataBuffer( void *p , const void *cp , size_t l ) {
         
         float randBrightness = PerlinNoise2D(x, y, a, b, octs);
         randBrightness = (1.0 + randBrightness) / 2; // convert -1..1 to 0..1
-        int pixelVal = map(randBrightness, 0.0f, 1.0f, minBrightness*1.0f, maxBrightness*1.0f);
+        int pixelVal = CGMap(randBrightness, 0.0f, 1.0f, minBrightness*1.0f, maxBrightness*1.0f);
         rawData[byteIndex] = (char)pixelVal;
         rawData[byteIndex+1] = (char)pixelVal;
         rawData[byteIndex+2] = (char)pixelVal;

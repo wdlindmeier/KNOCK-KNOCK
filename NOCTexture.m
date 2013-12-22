@@ -7,7 +7,7 @@
 //
 
 #import "NOCTexture.h"
-#import "NOCGeometryHelpers.h"
+#import "NOCGeometry.h"
 
 @implementation NOCTexture
 

@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#define RAND_SCALAR ((double)(arc4random() % 100000) * 0.00001)
+#pragma once
+
+#define f(n)    [n floatValue]
+#define CONSTRAIN(n,min,max)    MIN(MAX(n,min),max)
 
 extern CGPoint CGPointScale(CGPoint A, double b);
 extern CGPoint CGPointAdd(CGPoint a, CGPoint b);
@@ -28,3 +31,6 @@ extern float CGPointDistance(CGPoint a, CGPoint b);
 
 extern float RadiansBetweenPoints(CGPoint a, CGPoint b);
 extern float RadiansFromVector(CGPoint vec);
+
+extern float CGMap(float n, float minIn, float maxIn, float minOut, float maxOut);
+extern float RandScalar();
