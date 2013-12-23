@@ -29,7 +29,8 @@ static inline GLKTextureInfo * NOCLoadGLTextureWithImage(UIImage *texImage)
     GLKTextureInfo *tex = [GLKTextureLoader textureWithCGImage:texImage.CGImage
                                                        options:nil
                                                          error:&texError];
-    if(texError){
+    if(texError)
+    {
         NSLog(@"ERROR: Could not load the texture: %@", texError);
         NOCPrintGLError();
         return nil;
@@ -178,6 +179,8 @@ static inline GLKVector3 NOCVecModBox3D(GLKVector3 point, NOCBox3D box)
     return GLKVector3Make(x, y, z);
     
 }
+
+#define GLKMatrix4Zero GLKMatrix4Make(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 static inline GLKMatrix4 GLKMatrix4AlignWithVector3Heading(GLKMatrix4 mat, GLKVector3 vecHeading)
 {
