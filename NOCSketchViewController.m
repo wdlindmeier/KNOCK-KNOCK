@@ -35,7 +35,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if(self){
+    if(self)
+    {
         [self initNOCSketchViewController];
     }
     return self;    
@@ -44,7 +45,8 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    if(self){
+    if(self)
+    {
         [self initNOCSketchViewController];
     }
     return self;
@@ -61,7 +63,8 @@
 {    
     [self tearDownGL];
     
-    if ([EAGLContext currentContext] == self.context) {
+    if ([EAGLContext currentContext] == self.context)
+    {
         [EAGLContext setCurrentContext:nil];
     }
 }
@@ -70,12 +73,14 @@
 {
     [super didReceiveMemoryWarning];
 
-    if ([self isViewLoaded] && ([[self view] window] == nil)) {
+    if ([self isViewLoaded] && ([[self view] window] == nil))
+    {
         self.view = nil;
         
         [self tearDownGL];
         
-        if ([EAGLContext currentContext] == self.context) {
+        if ([EAGLContext currentContext] == self.context)
+        {
             [EAGLContext setCurrentContext:nil];
         }
         self.context = nil;
@@ -105,9 +110,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self setupGL];
-        
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -159,7 +162,6 @@
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     [EAGLContext setCurrentContext:self.context];
-    
 }
 
 - (void)setupGL
@@ -174,7 +176,8 @@
 - (void)tearDownGL
 {
     [self teardown];
-    for(NSString *shaderName in _shaders){
+    for(NSString *shaderName in _shaders)
+    {
         NOCShaderProgram *shader = [self shaderNamed:shaderName];
         [shader unload];
     }
@@ -193,16 +196,14 @@
 
 - (BOOL)loadShaders
 {
-    for(NSString *shaderName in _shaders){
-        
+    for(NSString *shaderName in _shaders)
+    {
         NOCShaderProgram *shader = [self shaderNamed:shaderName];
         BOOL didLoad = [shader load];
         if(!didLoad){
             return NO;
         }
-
     }
-    
     return YES;
 }
 
@@ -223,7 +224,8 @@
     _sizeView = self.view.frame.size;
     _viewAspect = _sizeView.width / _sizeView.height;
     
-    for(int i=0;i<4;i++){
+    for( int i=0; i < 4; i++ )
+    {
         _screen3DBillboardVertexData[i*3+0] = kSquare3DBillboardVertexData[i*3+0] * 2;
         _screen3DBillboardVertexData[i*3+1] = kSquare3DBillboardVertexData[i*3+1] * 2 / _viewAspect;
         _screen3DBillboardVertexData[i*3+2] = kSquare3DBillboardVertexData[i*3+2] * 2;
