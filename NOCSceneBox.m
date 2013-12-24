@@ -121,8 +121,9 @@
 {
     for(int i=0;i<6;i++){
         GLfloat segColors[4];
-        WallSide side = i+1;
-        switch (side) {
+        NOCWallSide side = i+1;
+        switch (side)
+        {
             case WallSideNone:
                 break;
             case WallSideBack:
@@ -144,7 +145,8 @@
                 NOCColorComponentsForColor(segColors, self.colorBottom);
                 break;
         }
-        for(int j=0;j<5;j++){
+        for(int j=0;j<5;j++)
+        {
             _wallColors[i][j*4+0] = segColors[0];
             _wallColors[i][j*4+1] = segColors[1];
             _wallColors[i][j*4+2] = segColors[2];
@@ -231,7 +233,7 @@
         
         GLfloat wallVerts[5*3];
         
-        WallSide side = i+1;
+        NOCWallSide side = i+1;
         BOOL isXOffset = side != WallSideLeft && side != WallSideRight;
         BOOL isYOffset = side != WallSideTop && side != WallSideBottom;
         BOOL isZOffset = side != WallSideFront && side != WallSideBack;

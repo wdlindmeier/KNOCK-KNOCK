@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
+#import "NOCShaderDefaults.h"
 
 @class NOCTexture;
 
