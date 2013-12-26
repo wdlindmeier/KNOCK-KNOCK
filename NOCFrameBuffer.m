@@ -74,6 +74,18 @@
     glViewport(0, 0, _size.width, _size.height);
 }
 
+- (void)bind:(void(^)())drawingBlock
+{
+    [self bind];
+    drawingBlock();
+    [self unbind];
+}
+
+- (void)unbind
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 - (GLuint)bindTexture:(int)texLoc
 {
     glEnable(GL_TEXTURE_2D);

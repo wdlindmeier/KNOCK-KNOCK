@@ -18,6 +18,8 @@
 - (id)initWithPixelWidth:(int)width pixelHeight:(int)height;
 
 - (void)bind;
+- (void)bind:(void(^)())drawingBlock;
+- (void)unbind;
 - (GLuint)bindTexture:(int)texLoc;
 - (UIImage *)imageAtRect:(CGRect)cropRect;
 - (void)pixelValuesInRect:(CGRect)cropRect buffer:(GLubyte *)pixelBuffer;

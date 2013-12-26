@@ -1,14 +1,14 @@
 //
-//  NOCVBO.m
-//  NOCVBO
+//  NOCVertexBuffer.m
+//  NOCVertexBuffer
 //
 //  Created by William Lindmeier on 12/26/13.
 //  Copyright (c) 2013 William Lindmeier. All rights reserved.
 //
 
-#import "NOCVBO.h"
+#import "NOCVertexBuffer.h"
 
-@implementation NOCVBO
+@implementation NOCVertexBuffer
 {
     GLuint _vertexArray;
     GLuint _vertexBuffer;
@@ -50,6 +50,13 @@
 - (void)bind
 {
     glBindVertexArrayOES(_vertexArray);
+}
+
+- (void)bind:(void(^)())drawingBlock
+{
+    [self bind];
+    drawingBlock();
+    [self unbind];
 }
 
 - (void)unbind
