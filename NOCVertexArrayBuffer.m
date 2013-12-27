@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 William Lindmeier. All rights reserved.
 //
 
-#import "NOCVertexBuffer.h"
+#import "NOCVertexArrayBuffer.h"
 
-@implementation NOCVertexBuffer
+@implementation NOCVertexArrayBuffer
 {
     GLuint _vertexArray;
     GLuint _vertexBuffer;

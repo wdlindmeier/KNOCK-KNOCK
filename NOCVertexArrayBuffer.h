@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 
-@interface NOCVertexBuffer : NSObject
+@interface NOCVertexArrayBuffer : NSObject
 
 - (id)initWithSize:(GLsizeiptr)size
               data:(const GLvoid *)data

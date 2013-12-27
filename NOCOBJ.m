@@ -22,13 +22,17 @@
 - (id)initWithFilename:(NSString *)filename
 {
     self = [super init];
-    if(self){
+    if(self)
+    {
         [self initNOCOBJ];
         // Parse it on up
         NSString *objPath = [[NSBundle mainBundle] pathForResource:filename ofType:@"obj"];
-        if(objPath){
+        if(objPath)
+        {
             [self parseObjFileAtPath:objPath];
-        }else{
+        }
+        else
+        {
             return nil;
         }
     }
@@ -38,7 +42,8 @@
 - (id)init
 {
     self = [super init];
-    if(self){
+    if(self)
+    {
         [self initNOCOBJ];
     }
     return self;
@@ -62,31 +67,44 @@
 
 - (void)clearArrays
 {
-    if(_verts){
+    if(_verts)
+    {
         free(_verts);
         _verts = NULL;
     }
-    if(_texCoords){
+    
+    if(_texCoords)
+    {
         free(_texCoords);
         _texCoords = NULL;
     }
-    if(_normals){
+    
+    if(_normals)
+    {
         free(_normals);
         _normals = NULL;
     }
-    if(_vertsAndNormals){
+    
+    if(_vertsAndNormals)
+    {
         free(_vertsAndNormals);
         _vertsAndNormals = NULL;
     }
-    if(_faceIdxs){
+    
+    if(_faceIdxs)
+    {
         free(_faceIdxs);
         _faceIdxs = NULL;
     }
-    if(_vertexBuffer){
+    
+    if(_vertexBuffer)
+    {
         glDeleteBuffers(1, &_vertexBuffer);
         _vertexBuffer = 0;
     }
-    if(_vertexArray){
+    
+    if(_vertexArray)
+    {
         glDeleteVertexArraysOES(1, &_vertexArray);
         _vertexArray = 0;
     }
@@ -95,24 +113,28 @@
 - (void)recalculateNormals
 {
     int i=0;
-    while(i<_numVerts){
+    while( i < _numVerts )
+    {
         int startVertIdx = i;
         GLKVector3 face[3];
         int idxV=0;
         int attempt=0;
         GLKVector3 lastVec;
-        while (idxV < 3) {
+        while ( idxV < 3 )
+        {
             attempt++;        
             GLKVector3 vec = GLKVector3Make(_verts[(i*3)+0],
                                             _verts[(i*3)+1],
                                             _verts[(i*3)+2]);
-            if(idxV == 0 || !GLKVector3Equal(lastVec, vec) || attempt > 10){
+            if( idxV == 0 || !GLKVector3Equal(lastVec, vec) || attempt > 10 )
+            {
                 face[idxV] = vec;
                 lastVec = vec;
                 idxV++;
             } // else skip
             i++;
-            if(i>=_numVerts-1){
+            if( i >= _numVerts-1 )
+            {
                 break;
             }
         }
@@ -120,11 +142,13 @@
         // Keep rolling until we hit 2 degenerate triangles that match the first.
         // This assumes the specific triangle strip implementation that this class is using.
         int numDG = 0;
-        while (numDG<2 && i<_numVerts) {
+        while ( numDG < 2 && i < _numVerts )
+        {
             GLKVector3 nextVec = GLKVector3Make(_verts[(i*3)+0],
                                                 _verts[(i*3)+1],
                                                 _verts[(i*3)+2]);
-            if(GLKVector3Equal(nextVec, face[0])){
+            if( GLKVector3Equal(nextVec, face[0]) )
+            {
                 numDG++;
             }
             i++;
@@ -144,7 +168,8 @@
         
         norm = GLKVector3Length(vNeg) > GLKVector3Length(vPos) ? normNeg : norm;
         
-        for(int n=startVertIdx;n<i;n++){
+        for( int n = startVertIdx; n < i; n++ )
+        {
             _normals[n*3] = norm.x;
             _normals[n*3+1] = norm.y;
             _normals[n*3+2] = norm.z;
@@ -162,10 +187,13 @@
                                                          error:&loadError];
     objContents = [objContents stringByReplacingOccurrencesOfString:@"\\\n" withString:@""];
     
-    if(loadError){
+    if (loadError)
+    {
         NSLog(@"ERROR: Could not load obj file: %@", loadError);
         return NO;
-    }else{
+    }
+    else
+    {
         // NSLog(@"Loaded OBJ File:\n%@", objContents);
     }
     
@@ -173,12 +201,12 @@
     NSRegularExpression *lineExp = [[NSRegularExpression alloc] initWithPattern:@"^(v|vn|vt|f)\\s+([e\\-\\d\\.\\s\\/]+)$"
                                                                         options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAnchorsMatchLines
                                                                           error:&expressionError];
-    if(!lineExp){
-        
+    if( !lineExp )
+    {
         NSLog(@"Regexp error: %@", expressionError);
-        
-    }else{
-
+    }
+    else
+    {
         NSMutableArray *verts = [NSMutableArray array];
         NSMutableArray *texs = [NSMutableArray array];
         NSMutableArray *normals = [NSMutableArray array];
@@ -204,8 +232,6 @@
                                        NSString *lineValue = [objContents substringWithRange:[result rangeAtIndex:2]];
                                        NSCharacterSet *deliniations = [NSCharacterSet whitespaceAndNewlineCharacterSet];
                                        NSArray *values = [lineValue componentsSeparatedByCharactersInSet:deliniations];
-                                       
-                                       // NSLog(@"lineType %@", lineType);
                                        
                                        if([lineType isEqualToString:@"f"]){
                                            
@@ -339,8 +365,10 @@
         _faceIdxs = malloc(sizeof(int) * faceIndexes.count);
 
         int idx=0;
-        for(NSArray *coords in triangleStripVerts){
-            for(NSNumber *coord in coords){
+        for( NSArray *coords in triangleStripVerts )
+        {
+            for( NSNumber *coord in coords )
+            {
                 int row = idx/3;
                 int column = idx%3;
                 float val = [coord floatValue];
@@ -351,15 +379,19 @@
         }
         
         idx=0;
-        for(NSNumber *n in faceIndexes){
+        for( NSNumber *n in faceIndexes )
+        {
             _faceIdxs[idx] = [n intValue];
             idx++;
         }
 
         idx=0;
+        
          // Crazy. There can be 3 tex coords. Just truncating the last one.
-        for(NSArray *coords in triangleStripTexs){
-            for(int t=0;t<2;t++){
+        for( NSArray *coords in triangleStripTexs )
+        {
+            for( int t=0; t<2; t++ )
+            {
                 NSNumber *coord = [coords objectAtIndex:t];
                 _texCoords[idx] = [coord floatValue];
                 idx++;
@@ -367,8 +399,10 @@
         }
 
         idx=0;
-        for(NSArray *coords in triangleStripNormals){
-            for(NSNumber *coord in coords){
+        for( NSArray *coords in triangleStripNormals )
+        {
+            for( NSNumber *coord in coords )
+            {
                 int row = idx/3;
                 int column = idx%3;
                 float val = [coord floatValue];
@@ -397,8 +431,7 @@
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
 
     glBufferData(GL_ARRAY_BUFFER,
-                 //sizeof(GLfloat) * _numVerts * 3 * 2, // *2 for verts & normals
-                 sizeof(GLfloat) * ((_numVerts * 3) + (_numVerts * 3)),
+                 sizeof(GLfloat) * (_numVerts * 6),
                  _vertsAndNormals,
                  GL_STATIC_DRAW);
 
