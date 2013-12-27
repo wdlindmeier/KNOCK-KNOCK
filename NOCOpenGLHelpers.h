@@ -14,6 +14,10 @@
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
+typedef GLKVector4 GLVec4;
+typedef GLKVector3 GLVec3;
+typedef GLKVector2 GLVec2;
+
 #pragma mark - Structs
 
 typedef struct
