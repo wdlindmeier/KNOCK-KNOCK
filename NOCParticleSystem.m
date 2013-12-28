@@ -61,23 +61,19 @@
 
 - (void)applyForce3D:(GLKVector3)force
 {
-    for(NOCParticle3D *p in _particles){
-        if([p isKindOfClass:[NOCParticle3D class]]){
-            [p applyForce:force];
-        }else{
-            NSLog(@"ERROR: Can not apply 3D force to class: %@", [p class]);
-        }
+    for(NOCParticle3D *p in _particles)
+    {
+        assert([p isKindOfClass:[NOCParticle3D class]]);
+        [p applyForce:force];
     }
 }
 
 - (void)applyForce2D:(GLKVector2)force
 {
-    for(NOCParticle2D *p in _particles){
-        if([p isKindOfClass:[NOCParticle2D class]]){
-            [p applyForce:force];
-        }else{
-            NSLog(@"ERROR: Can not apply 2D force to class: %@", [p class]);
-        }
+    for(NOCParticle2D *p in _particles)
+    {
+        assert([p isKindOfClass:[NOCParticle2D class]]);
+        [p applyForce:force];
     }
 }
 

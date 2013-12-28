@@ -143,19 +143,15 @@
     GLKMatrix4 matCam = GLKMatrix4MakeTranslation(0, 0, self.cameraDepth);
     GLKMatrix4 matScene = GLKMatrix4Multiply(_projectionMatrix3DStatic, matCam);
     
-
-    if(self.isArcballEnabled){
-        
+    if(self.isArcballEnabled)
+    {
         _projectionMatrix3D = [self rotateMatrixWithArcBall:matScene];
-        
     }
     
-    if(self.isGestureNavigationEnabled){
-        
+    if(self.isGestureNavigationEnabled)
+    {
         _projectionMatrix3D = [self rotateMatrixWithArcBall:matScene];
-        
     }
-    
 }
 
 #pragma mark - Arcball rotation

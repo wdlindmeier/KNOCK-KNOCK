@@ -100,15 +100,18 @@
         
         NSLog(@"Failed to link program: %@", self.name);
         
-        if (vertShader) {
+        if (vertShader)
+        {
             glDeleteShader(vertShader);
             vertShader = 0;
         }
-        if (fragShader) {
+        if (fragShader)
+        {
             glDeleteShader(fragShader);
             fragShader = 0;
         }
-        if (self.glPointer) {
+        if (self.glPointer)
+        {
             glDeleteProgram(self.glPointer);
             self.glPointer = 0;
         }

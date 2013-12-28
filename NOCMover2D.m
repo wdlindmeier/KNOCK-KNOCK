@@ -61,8 +61,8 @@
     }else{
         // Constrain
         // Dont let the walker move outside of the rect.
-        x = CONSTRAIN(x, minX, maxX);
-        y = CONSTRAIN(y, minY, maxY);
+        x = CGClamp(x, minX, maxX);
+        y = CGClamp(y, minY, maxY);
     }
     
     self.position = GLKVector2Make(x, y);

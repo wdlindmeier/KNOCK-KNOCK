@@ -66,7 +66,9 @@ static CGRect regionForChar(char c)
     self = [super initWithImageNamed:imageName];
     if (self)
     {
+#if DEBUG
         NSLog(@"NOCTextureFont Font: w %i h %i", (int)self.size.width, (int)self.size.height);
+#endif
     }
     return self;
 }

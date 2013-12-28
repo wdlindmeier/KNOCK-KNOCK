@@ -314,8 +314,8 @@ enum {
     CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
     CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false);
 
-    if(self.shouldDetectFacesInBackground){
-    
+    if(self.shouldDetectFacesInBackground)
+    {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             
             assert(![NSThread isMainThread]);
@@ -333,15 +333,15 @@ enum {
             
         });
 
-    }else{
-        
+    }
+    else
+    {
         NSArray *features = [_faceDetector featuresInImage:ciImage options:imageOptions];
 
         [self handleFaceFeatures:features
                      forVideoBox:clap
                      orientation:curDeviceOrientation];
-    }
-    
+    }    
 }
 
 - (void)handleFaceFeatures:(NSArray *)features forVideoBox:(CGRect)clap orientation:(UIDeviceOrientation)orientation
