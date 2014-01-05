@@ -13,11 +13,9 @@
     float _radiansPerPixel;
     CGPoint _posTouchInit;
 	GLKQuaternion _quatArcball;
-    float _camDepthScalingBegan;
     UIPinchGestureRecognizer *_depthGestureRecognizer;
     UIRotationGestureRecognizer *_rotationGestureRecognizer;
-    float _lastRotationRadians;
-    
+    float _lastRotationRadians;    
 }
 @end
 
@@ -77,7 +75,8 @@
 
 - (void)handleDepthGesture:(UIPinchGestureRecognizer *)gr
 {
-    switch (gr.state) {
+    switch (gr.state)
+    {
         case UIGestureRecognizerStateBegan:
             _camDepthScalingBegan = _cameraDepth;
             break;
@@ -86,7 +85,6 @@
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
-            
             break;
         default:
             break;
@@ -106,8 +104,8 @@
         {
             GLKVector3 zAxis = GLKVector3Make(0.f, 0.f, -1.f);
             zAxis = GLKQuaternionRotateVector3( GLKQuaternionInvert(_quatArcball), zAxis );
-            GLKQuaternion quatZ = GLKQuaternionMakeWithAngleAndVector3Axis(deltaRads, zAxis);
-            _quatArcball = GLKQuaternionMultiply(_quatArcball, quatZ);
+            GLKQuaternion quatZ = GLKQuaternionMakeWithAngleAndVector3Axis( deltaRads, zAxis );
+            _quatArcball = GLKQuaternionMultiply( _quatArcball, quatZ );
         }
             break;
         case UIGestureRecognizerStateEnded:
@@ -143,12 +141,7 @@
     GLKMatrix4 matCam = GLKMatrix4MakeTranslation(0, 0, self.cameraDepth);
     GLKMatrix4 matScene = GLKMatrix4Multiply(_projectionMatrix3DStatic, matCam);
     
-    if(self.isArcballEnabled)
-    {
-        _projectionMatrix3D = [self rotateMatrixWithArcBall:matScene];
-    }
-    
-    if(self.isGestureNavigationEnabled)
+    if( self.isArcballEnabled || self.isGestureNavigationEnabled )
     {
         _projectionMatrix3D = [self rotateMatrixWithArcBall:matScene];
     }
@@ -158,7 +151,7 @@
 
 // http://thestrangeagency.com/arcball-rotation-with-glkit/
 
-- (void) initArcBall
+- (void)initArcBall
 {
 	_quatArcball = GLKQuaternionMake(0.f, 0.f, 0.f, 1.f);
     _posTouchInit = CGPointZero;
