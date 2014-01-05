@@ -36,6 +36,7 @@
 
         geometrySetupBlock();
         
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArrayOES(0);
     }
     return self;
