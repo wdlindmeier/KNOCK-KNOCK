@@ -8,6 +8,7 @@
 
 #import "NOCShaderProgram.h"
 #import "NOCTexture.h"
+#import "NOCColorHelpers.h"
 
 @implementation NOCShaderProgram
 {
@@ -331,6 +332,15 @@
     NSNumber *uniLoc = self.uniformLocations[uniformName];
     assert(uniLoc);
     glUniform2f([uniLoc intValue], vec2.x, vec2.y);
+}
+
+- (void)setColor:(UIColor *)color forUniform:(NSString *)uniformName
+{
+    GLfloat components[4];
+    NOCColorComponentsForColor(components, color);
+    NSNumber *uniLoc = self.uniformLocations[uniformName];
+    assert(uniLoc);
+    glUniform4f([uniLoc intValue], components[0], components[1], components[2], components[3]);
 }
 
 - (void)bindTexture:(NOCTexture *)texture forUniform:(NSString *)uniformName

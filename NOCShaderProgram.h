@@ -42,6 +42,8 @@
 - (void)setVec3:(GLKVector3)vec3 forUniform:(NSString *)uniformName;
 - (void)setVec2:(GLKVector2)vec2 forUniform:(NSString *)uniformName;
 
+- (void)setColor:(UIColor *)color forUniform:(NSString *)uniformName;
+
 - (void)bindTexture:(NOCTexture *)texture forUniform:(NSString *)uniformName;
 
 - (void)enableAttribute2D:(NSString *)attribName withArray:(const GLvoid*)arrayValues;
