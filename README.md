@@ -33,6 +33,7 @@ It's built upon the GLKit framework.
     _shader.attributes = @{ @"position" : @(GLKVertexAttribPosition), 
                             @"color" : @(GLKVertexAttribColor) };
     _shader.uniformNames = @[ @"uModelViewProjectionMatrix" ];
+    
     [self addShader:_shader named:@"BasicShader"];
 
     // Setup the Particle
