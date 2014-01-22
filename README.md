@@ -1,7 +1,7 @@
-KNOCK-KNOCK iOS
+Knock-Knock iOS
 ========
 
-KNOCK-KNOCK is a collection of convenience classes for OpenGL ES 2 that were originally created for the [Nature-of-Code iOS App](https://github.com/wdlindmeier/Nature-Of-Code). Among these classes are:
+Knock-Knock is a collection of convenience classes for OpenGL ES 2 that were originally created for the [Nature-of-Code iOS App](https://github.com/wdlindmeier/Nature-Of-Code). Among these classes are:
 
 * 2D & 3D scene view controllers
 * A Particle System
