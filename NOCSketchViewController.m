@@ -222,6 +222,11 @@
 - (void)resize
 {
     _sizeView = self.view.frame.size;
+    if ( UIInterfaceOrientationIsLandscape(self.interfaceOrientation) )
+    {
+        _sizeView = CGSizeMake(_sizeView.height, _sizeView.width);
+    }
+    
     _viewAspect = _sizeView.width / _sizeView.height;
     
     for( int i=0; i < 4; i++ )
