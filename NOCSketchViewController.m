@@ -116,14 +116,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
 #ifdef USE_SKETCH_CONTROLS
+    
     UIBarButtonItem *actionItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                                 target:self
                                                                                 action:@selector(buttonActionPressed:)];
     
     self.navigationItem.rightBarButtonItem = actionItem;
+    
 #endif
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
