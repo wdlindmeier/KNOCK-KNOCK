@@ -19,7 +19,7 @@
     unsigned long long _totalFileLength;
 }
 
-@property (nonatomic, copy) NSString * lineDelimiter;
+@property (nonatomic, copy) NSString *lineDelimiter;
 @property (nonatomic) NSUInteger chunkSize;
 
 - (id)initWithFilePath:(NSString *)aPath;
@@ -27,9 +27,8 @@
 - (NSString *)readLine;
 - (NSString *)readTrimmedLine;
 
-#if NS_BLOCKS_AVAILABLE
 - (void)enumerateLinesUsingBlock:(void(^)(NSString *line, BOOL *shouldStop))block;
 - (void)enumerateTrimmedLinesUsingBlock:(void(^)(NSString *line, BOOL *shouldStop))block;
-#endif
+- (void)enumerateCSVUsingBlock:(void(^)(NSArray *row))block;
 
 @end

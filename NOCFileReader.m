@@ -16,7 +16,8 @@
 
 @implementation NSData (DDAdditions)
 
-- (NSRange) rangeOfData_dd:(NSData *)dataToFind {
+- (NSRange)rangeOfData_dd:(NSData *)dataToFind
+{
     
     const void * bytes = [self bytes];
     NSUInteger length = [self length];
@@ -50,6 +51,7 @@
 {
     if (self = [super init])
     {
+        assert([[NSFileManager defaultManager] fileExistsAtPath:aPath]);
         _fileHandle = [NSFileHandle fileHandleForReadingAtPath:aPath];
         if ( _fileHandle == nil )
         {
@@ -112,8 +114,6 @@
     return [[self readLine] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-#if NS_BLOCKS_AVAILABLE
-
 - (void)enumerateLinesUsingBlock:(void(^)(NSString *line, BOOL *shouldStop))block
 {
     NSString * line = nil;
@@ -133,6 +133,74 @@
         block(line, &stop);
     }
 }
-#endif
+
+- (void)enumerateCSVUsingBlock:(void(^)(NSArray *row))block
+{
+    [self enumerateTrimmedLinesUsingBlock:^(NSString *line, BOOL *shouldStop)
+    {
+        NSUInteger startRange = 0;
+        NSUInteger lastOpenQuote = NSNotFound;
+        NSUInteger lastCloseQuote = NSNotFound;
+        int lineLength = [line length];
+        NSMutableArray *values = [NSMutableArray array];
+        bool isEscaped = false;
+        
+        for ( int i = 0; i < lineLength; ++i )
+        {
+            char c = [line characterAtIndex:i];
+            if ( c == '\\' )
+            {
+                isEscaped = !isEscaped;
+            }
+            else
+            {
+                if ( c == '"' && !isEscaped )
+                {
+                    if ( lastOpenQuote == NSNotFound )
+                    {
+                        lastOpenQuote = i;
+                        // If this is startRange + 1, bump up start range so we trim
+                        // the quotes when we return
+                        if ( i == startRange )
+                        {
+                            startRange += 1;
+                        }
+                    }
+                    else
+                    {
+                        // Close it out
+                        lastOpenQuote = NSNotFound;
+                        lastCloseQuote = i;
+                    }
+                }
+                else if ( c == ',' )
+                {
+                    if ( lastOpenQuote == NSNotFound )
+                    {
+                        // Split.
+                        int tokenLength = i - startRange;
+                        if ( lastCloseQuote == i - 1 )
+                        {
+                            // Trim the last quote
+                            tokenLength -= 1;
+                        }
+                        NSString *token = [line substringWithRange:NSMakeRange(startRange, tokenLength)];
+                        [values addObject:token];
+                        startRange = i+1;
+                    }
+                    // ELSE Ignore. This is inside quotes.
+                }
+                
+                // Clear out the escape value
+                isEscaped = false;
+            }
+        }
+        
+        NSString *lastToken = [line substringWithRange:NSMakeRange(startRange, lineLength-startRange)];
+        [values addObject:lastToken];
+
+        block([values copy]);
+    }];
+}
 
 @end
