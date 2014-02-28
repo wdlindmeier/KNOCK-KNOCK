@@ -157,6 +157,9 @@
                                                              glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE,
                                                                                    32, BUFFER_OFFSET(20));
                                                          }];
+    
+    free(geomData);
+    geomData = NULL;
 }
 
 - (void)render:(GLenum)renderMode
