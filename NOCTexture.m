@@ -59,6 +59,15 @@
     glUniform1i(uniformSamplerLocation, 0);
 }
 
+- (void)enableAndBind:(GLuint)uniformSamplerLocation atPosition:(int)textureNum
+{
+    glBindTexture(GL_TEXTURE_2D, [self textureID]);
+    // Heh. Does this work?
+    assert(GL_TEXTURE1 == GL_TEXTURE0 + 1);
+    glActiveTexture(GL_TEXTURE0 + textureNum);
+    glUniform1i(uniformSamplerLocation, textureNum);
+}
+
 - (void)unbind
 {
     glBindTexture(GL_TEXTURE_2D, 0);
