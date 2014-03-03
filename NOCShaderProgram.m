@@ -347,7 +347,7 @@
 {
     NSNumber *uniLoc = self.uniformLocations[uniformName];
     assert(uniLoc);
-    [texture enableAndBind:[uniLoc intValue]];
+    [texture enableAndBindToUniform:[uniLoc intValue]];
 }
 
 - (void)enableAttribute3D:(NSString *)attribName withArray:(const GLvoid*)arrayValues
