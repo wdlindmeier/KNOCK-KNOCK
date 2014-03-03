@@ -16,8 +16,9 @@
 
 - (id)initWithImageNamed:(NSString *)imageName;
 - (id)initWithImage:(UIImage *)image;
-- (void)enableAndBind:(GLuint)uniformSamplerLocation;
-- (void)enableAndBind:(GLuint)uniformSamplerLocation atPosition:(int)textureNum;
+- (void)enableAndBind:(int)textureLoc;
+- (void)enableAndBindToUniform:(GLuint)uniformSamplerLocation;
+- (void)enableAndBindToUniform:(GLuint)uniformSamplerLocation atPosition:(int)textureNum;
 - (void)unbind;
 - (void)render;
 - (GLuint)textureID;

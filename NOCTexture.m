@@ -51,16 +51,21 @@
     return _glTexture.name;
 }
 
-- (void)enableAndBind:(GLuint)uniformSamplerLocation
+- (void)enableAndBind:(int)textureLoc
+{
+    glActiveTexture(GL_TEXTURE0+textureLoc);
+    glBindTexture(GL_TEXTURE_2D, [self textureID]);
+}
+
+- (void)enableAndBindToUniform:(GLuint)uniformSamplerLocation
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, [self textureID]);
     glUniform1i(uniformSamplerLocation, 0);
 }
 
-- (void)enableAndBind:(GLuint)uniformSamplerLocation atPosition:(int)textureNum
+- (void)enableAndBindToUniform:(GLuint)uniformSamplerLocation atPosition:(int)textureNum
 {
-    // Heh. Does this work?
     assert(GL_TEXTURE1 == GL_TEXTURE0 + 1);
     glActiveTexture(GL_TEXTURE0 + textureNum);
     glBindTexture(GL_TEXTURE_2D, [self textureID]);
