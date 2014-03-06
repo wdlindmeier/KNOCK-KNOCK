@@ -16,6 +16,10 @@
 {
     long _frameCount;
     NSMutableDictionary *_shaders;
+    long _fpsLastSampleFrame;
+    NSTimeInterval _fpsLastSampleTime;
+    NSTimeInterval _averageFPSSampleInterval;
+    float _averageFPS;    
 }
 
 @property (strong, nonatomic) GLKBaseEffect *effect;
@@ -55,6 +59,10 @@
 - (void)initNOCSketchViewController
 {
     _shaders = [NSMutableDictionary dictionaryWithCapacity:10];
+    _fpsLastSampleFrame = -1;
+    _fpsLastSampleTime = [NSDate timeIntervalSinceReferenceDate];
+    _averageFPS = 0;
+    _averageFPSSampleInterval = 1.0f;
 }
 
 #pragma mark - Memory
@@ -190,8 +198,21 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    [self calculateFPS];
     [self draw];
     _frameCount++;
+}
+
+- (void)calculateFPS
+{
+    uint32_t framesPassed = _frameCount - _fpsLastSampleFrame;
+    NSTimeInterval _now = [NSDate timeIntervalSinceReferenceDate];
+    if ( _now - _fpsLastSampleTime >= _averageFPSSampleInterval )
+    {
+        _averageFPS = (float)(framesPassed / (_now - _fpsLastSampleTime));
+        _fpsLastSampleTime = _now;
+        _fpsLastSampleFrame = _frameCount;
+    }
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation

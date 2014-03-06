@@ -34,6 +34,7 @@
 
 // Properties
 @property (nonatomic, readonly) long frameCount;
+@property (nonatomic, readonly) float averageFPS;
 
 // Outlets
 @property (strong, nonatomic) EAGLContext *context;
@@ -41,6 +42,8 @@
 // Shaders
 - (NOCShaderProgram *)shaderNamed:(NSString *)shaderName;
 - (void)addShader:(NOCShaderProgram *)shader named:(NSString *)shaderName;
+
+- (float)averageFPS;
 
 // Loop
 - (void)setup;
