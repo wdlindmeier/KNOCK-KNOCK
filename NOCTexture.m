@@ -10,6 +10,9 @@
 #import "NOCGeometry.h"
 
 @implementation NOCTexture
+{
+    NSString *_imageName;
+}
 
 - (id)initWithImage:(UIImage *)image
 {
@@ -28,7 +31,7 @@
         _size = CGSizeMake(_glTexture.width, _glTexture.height);
         if(texError)
         {
-            NSLog(@"ERROR: Could not load the texture: %@", texError);
+            NSLog(@"ERROR: Could not load the texture (named \"%@\"): %@", _imageName, texError);
             return nil;
         }
     }
@@ -43,6 +46,7 @@
         NSLog(@"ERROR: Could not find the texture image: %@", imageName);
         return nil;
     }
+    _imageName = imageName;
     return [self initWithImage:image];
 }
 
