@@ -50,6 +50,12 @@
     return [self initWithImage:image];
 }
 
+- (void)dealloc
+{
+    GLuint index = _glTexture.name;
+    glDeleteTextures(1, &index);
+}
+
 - (GLuint)textureID
 {
     return _glTexture.name;

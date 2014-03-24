@@ -191,7 +191,7 @@
         NOCShaderProgram *shader = [self shaderNamed:shaderName];
         [shader unload];
     }
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:nil];
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
