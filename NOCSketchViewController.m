@@ -32,8 +32,6 @@
 
 @implementation NOCSketchViewController
 
-@synthesize frameCount = _frameCount;
-
 #pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

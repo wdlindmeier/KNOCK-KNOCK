@@ -16,6 +16,11 @@
 
 - (id)initWithImage:(UIImage *)image
 {
+    return [self initWithImage:image premultiply:NO];
+}
+
+- (id)initWithImage:(UIImage *)image premultiply:(BOOL)premultiply
+{
     self = [super init];
     if (self)
     {
@@ -25,8 +30,12 @@
         // Clear the error in case there's anything in the pipes.
         glGetError();
         NSError *texError = nil;
+        
+        // Don't pre-multiply
+        // http://stackoverflow.com/questions/4012035/opengl-es-iphone-alpha-blending-looks-weird
+        // IPHONE_OPTIMIZE_OPTIONS | -skip-PNGs
         _glTexture = [GLKTextureLoader textureWithCGImage:image.CGImage
-                                                  options:nil
+                                                  options:@{ GLKTextureLoaderApplyPremultiplication : @(premultiply) }
                                                     error:&texError];
         _size = CGSizeMake(_glTexture.width, _glTexture.height);
         if(texError)
@@ -40,6 +49,11 @@
 
 - (id)initWithImageNamed:(NSString *)imageName
 {
+    return [self initWithImageNamed:imageName premultiply:NO];
+}
+
+- (id)initWithImageNamed:(NSString *)imageName premultiply:(BOOL)premultiply
+{
     UIImage *image = [UIImage imageNamed:imageName];
     if (!image)
     {
@@ -47,7 +61,7 @@
         return nil;
     }
     _imageName = imageName;
-    return [self initWithImage:image];
+    return [self initWithImage:image premultiply:premultiply];
 }
 
 - (void)dealloc
@@ -99,4 +113,35 @@
     glDisableVertexAttribArray(self.vertAttribLocation);
     glDisableVertexAttribArray(self.texCoordAttribLocation);
 }
+
+- (void)updateWithImage:(UIImage *)image
+{
+    CGImageRef imageRef = [image CGImage];
+    int width = CGImageGetWidth(imageRef);
+    int height = CGImageGetHeight(imageRef);
+    
+    GLubyte* textureData = (GLubyte *)malloc(width * height * 4); // if 4 components per pixel (RGBA)
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    NSUInteger bytesPerPixel = 4;
+    NSUInteger bytesPerRow = bytesPerPixel * width;
+    NSUInteger bitsPerComponent = 8;
+    CGContextRef context = CGBitmapContextCreate(textureData, width, height,
+                                                 bitsPerComponent, bytesPerRow, colorSpace,
+                                                 //kCGImageAlphaOnly | kCGBitmapByteOrder32Big);
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    
+    CGColorSpaceRelease(colorSpace);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+    CGContextRelease(context);
+    
+	glBindTexture( _glTexture.target, _glTexture.name );
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+    glTexImage2D( _glTexture.target, 0, GL_RGBA, width, height,
+                  0, GL_RGBA, GL_UNSIGNED_BYTE, textureData );
+    
+    free(textureData);
+}
+
 @end

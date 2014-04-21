@@ -17,6 +17,7 @@ static NSString * const NOCUniformNameModelViewMatrix = @"uModelViewMatrix";
 static NSString * const NOCUniformNameProjectionMatrix = @"uProjectionMatrix";
 static NSString * const NOCUniformNameNormalMatrix = @"uNormalMatrix";
 static NSString * const NOCUniformNameTextureSampler = @"uSampler";
+static NSString * const NOCUniformNamePointSize = @"uPointSize";
 static NSString * const NOCUniformNameColor = @"uColor";
 
 #pragma mark - Attributes
@@ -28,3 +29,8 @@ static NSString * const NOCAttributeNameTexCoord1 = @"aTexCoord1";
 static NSString * const NOCAttributeNameTexCoord2 = @"aTexCoord2";
 static NSString * const NOCAttributeNameTexCoord3 = @"aTexCoord3";
 static NSString * const NOCAttributeNameColor = @"aColor";
+static NSString * const NOCAttributeNamePointSize = @"aPointSize";
+
+#pragma mark - Additional Constants 
+
+const static int GLKVertexAttribPointSize = 10;

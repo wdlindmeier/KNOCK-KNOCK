@@ -15,13 +15,17 @@
 }
 
 - (id)initWithImageNamed:(NSString *)imageName;
+- (id)initWithImageNamed:(NSString *)imageName premultiply:(BOOL)premultiply;
 - (id)initWithImage:(UIImage *)image;
+- (id)initWithImage:(UIImage *)image premultiply:(BOOL)premultiply;
+
 - (void)enableAndBind:(int)textureLoc;
 - (void)enableAndBindToUniform:(GLuint)uniformSamplerLocation;
 - (void)enableAndBindToUniform:(GLuint)uniformSamplerLocation atPosition:(int)textureNum;
 - (void)unbind;
 - (void)render;
 - (GLuint)textureID;
+- (void)updateWithImage:(UIImage *)image;
 
 @property (nonatomic, assign) GLuint vertAttribLocation;
 @property (nonatomic, assign) GLuint texCoordAttribLocation;
