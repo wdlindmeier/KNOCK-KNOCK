@@ -46,7 +46,7 @@
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
     
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 0, &kSquare3DBillboardVertexData);
-    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, &kSquare3DTexCoords);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 0, &kSquare2DTexCoords);
     
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }

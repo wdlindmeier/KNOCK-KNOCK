@@ -82,7 +82,7 @@ static const GLfloat kFullSquare3DBillboardVertexData[12] =
 };
 
 // 2D Texture coords for billboard rendering.
-static const GLfloat kSquare3DTexCoords[8] =
+static const GLfloat kSquare2DTexCoords[8] =
 {
     0.f, 1.f,
     1.f, 1.f,
@@ -164,4 +164,23 @@ static inline NOCBox3D NOCBox3DMake(float originX, float originY, float originZ,
     box.origin = GLKVector3Make(originX, originY, originZ);
     box.size = GLKVector3Make(width, height, depth);
     return box;
+}
+
+static inline GLKMatrix4 NOCOrthoMatrixForViewSize( CGSize viewSize )
+{
+    return GLKMatrix4MakeOrtho(0, viewSize.width,
+                               viewSize.height, 0,
+                               -0.001, 1000);
+}
+
+static inline GLKMatrix4 NOCMatrixTranslateUnitToScreenCoords( CGPoint screenPos,
+                                                               CGSize screenSize )
+{
+    // Scale up the unit-based coords
+    float scale = screenSize.width / 2.0f; // divide by two because the unit matrix is -1..1
+    GLKMatrix4 modelMatrix = GLKMatrix4MakeTranslation(screenPos.x,
+                                                       screenPos.y,
+                                                       0);
+    // NOTE: In unit scale, +1 is up, in screen scale, +1 is down
+    return GLKMatrix4Scale( modelMatrix, scale, -scale, scale );
 }

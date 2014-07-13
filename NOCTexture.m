@@ -104,7 +104,7 @@
 - (void)render
 {
     glVertexAttribPointer(self.vertAttribLocation, 3, GL_FLOAT, GL_FALSE, 0, &kSquare3DBillboardVertexData);
-    glVertexAttribPointer(self.texCoordAttribLocation, 2, GL_FLOAT, GL_FALSE, 0, &kSquare3DTexCoords);
+    glVertexAttribPointer(self.texCoordAttribLocation, 2, GL_FLOAT, GL_FALSE, 0, &kSquare2DTexCoords);
     glEnableVertexAttribArray(self.vertAttribLocation);
     glEnableVertexAttribArray(self.texCoordAttribLocation);
     
