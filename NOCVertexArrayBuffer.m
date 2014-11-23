@@ -22,7 +22,6 @@
     if ( self )
     {
         glEnable(GL_DEPTH_TEST);
-        
         glGenVertexArraysOES(1, &_vertexArray);
         glBindVertexArrayOES(_vertexArray);
 

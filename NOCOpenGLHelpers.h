@@ -131,12 +131,13 @@ static inline void NOCCheckGLError(NSString *contextString)
             case GL_OUT_OF_MEMORY:
                 NSLog(@"GL_OUT_OF_MEMORY");
                 break;
-            case GL_STACK_UNDERFLOW:
-                NSLog(@"GL_STACK_UNDERFLOW");
-                break;
-            case GL_STACK_OVERFLOW:
-                NSLog(@"GL_STACK_OVERFLOW");
-                break;
+            // Stack under/over flow dont exist in GLES 2
+//            case GL_STACK_UNDERFLOW:
+//                NSLog(@"GL_STACK_UNDERFLOW");
+//                break;
+//            case GL_STACK_OVERFLOW:
+//                NSLog(@"GL_STACK_OVERFLOW");
+//                break;
         }
     }
 };

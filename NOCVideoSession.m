@@ -238,7 +238,8 @@ enum {
                                                        GL_RGBA,
                                                        width,
                                                        height,
-                                                       GL_BGRA,
+                                                       //GL_BGRA,
+                                                       GL_RGBA, // Huh...
                                                        GL_UNSIGNED_BYTE,
                                                        0,
                                                        &_videoTexture);

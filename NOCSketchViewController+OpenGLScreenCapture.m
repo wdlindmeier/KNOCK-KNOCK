@@ -22,16 +22,11 @@
     // this call is redundant, but it is needed if you're dealing with multiple renderbuffers.
     // Note, replace "_colorRenderbuffer" with the actual name of the renderbuffer object defined in your class.
     // glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
-
-    /*
-    GLint defaultRB;
-    glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, &defaultRB);
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, defaultRB);
-    */
     
     // Get the size of the backing CAEAGLLayer
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &backingWidth);
+    glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &backingHeight);
+
     
     NSInteger x = 0, y = 0, width = backingWidth, height = backingHeight;
     NSInteger dataLength = width * height * 4;
